@@ -1,0 +1,5 @@
+# File: vars/main.yml
+
+# Apache default user and group
+httpd_user: "www-data"
+httpd_group: "www-data"

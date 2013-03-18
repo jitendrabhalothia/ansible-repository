@@ -1,0 +1,22 @@
+---
+# File: setup.yml
+#         
+# Description: Miscelaneous startup tasks when provisionning a new server.
+#                 
+# Dependencies-internal (type:filename):
+# - vars: vars:main.yml
+#     
+# Dependencies-external (module:type:filename): 
+#
+# OS familly: Debian
+
+- name: Apache | Install apache related packages
+  apt: pkg:$item state=installed
+  with_items:
+  - apache2
+
+# Install the default templates
+- name: Apache | Configure envvars
+  template: src=templates/apache_envvars.j2 dest=/etc/apache2/envvars owner=root group=root mode=0644
+  notify:
+  - apache-restart
