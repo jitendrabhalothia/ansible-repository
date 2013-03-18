@@ -1,0 +1,7 @@
+# Main var file for bootstrap module
+
+# Upgrade all installed packages on bootstrap
+bootstrap_upgrade: True
+
+# Install python-simplejson (not necessary on Ubuntu. TODO: Test this on latest debian)
+$bootstrap_python_simplejson: False

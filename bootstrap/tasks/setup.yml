@@ -1,0 +1,23 @@
+---
+
+# File: setup.yml
+#         
+# Description: Miscelaneous startup tasks when provisionning a new server.
+#                 
+# Dependencies-internal (type:filename):
+# - vars: vars:main.yml
+#     
+# Dependencies-external (module:type:filename): 
+#
+# OS familly: Debian
+
+- name: Bootstrap | update apt caches
+  command: /usr/bin/apt-get update
+
+- name: Bootstrap | upgrade installed packages.
+  command: /usr/bin/apt-get upgrade -y
+  when_boolean: $bootstrap_upgrade
+
+- name: Bootstrap | install ansible dependencies
+  apt: pkh=python-simplejson state=present
+  when_boolean: $bootstrap_python_simplejson
