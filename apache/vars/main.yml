@@ -1,5 +1,12 @@
-# File: vars/main.yml
+# File: main.yml
+# Part: Apache
 
-# Apache default user and group
-httpd_user: "www-data"
-httpd_group: "www-data"
+# Thread management
+apache_flavor: "prefork"
+
+# Httpd user and group
+apache_user: "www-data"
+apache_group: "www-data"
+
+# Default apache base directory (without trailing '/')
+apache_root: "/var/www"
