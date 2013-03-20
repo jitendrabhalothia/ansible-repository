@@ -1,0 +1,23 @@
+---
+# File: setup.yml
+#         
+# Description: Install and configure Git
+#
+# Parameters:
+#
+# Dependencies ([part:]type:filename):
+# - vars:main.yml (not necessary if you don't override defaults)
+#
+# OS familly: Debian
+
+- name: Git | Install git base packages
+  apt: pkg=$item state=installed
+  with_items:
+    - git-core
+
+# Install the default templates
+- name: Git | Push global config file
+  template: 
+    src=$repository_basedir/git/templates/gitconfig.j2 
+    dest=/etc/gitconfig
+
