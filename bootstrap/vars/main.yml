@@ -1,0 +1,2 @@
+# This variable should be defined in the playbook somehow.
+bootstrap_upgrade: False

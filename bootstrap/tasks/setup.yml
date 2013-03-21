@@ -1,0 +1,27 @@
+---
+# File: setup.yml
+# Part: Bootstrap
+#
+# Description: Execute basic startup tasks like refresh the apt caches
+#
+# Parameters:
+# - bootstrap_upgrade: (bool) upgrade installed packages.
+#
+# Dependencies ([part:]type:filename):
+#
+# OS familly: Debian
+
+- name: Bootstrap | Update apt caches.
+  command: apt-get update
+
+- name: Bootstrap | Upgrade installed packages.
+  command: apt-get upgrade -y
+  when_boolean: $bootstrap_upgrade
+
+- name: Bootstrap | install misc utils
+  apt: pkg=$item state=present
+  with_items:
+    - htop
+    - curl
+    - tmux
+    - vim
