@@ -1,0 +1,15 @@
+---
+
+- hosts: webservers
+  user: vagrant
+  sudo: True
+
+  vars:
+    repository_basedir: ..
+    mysql_root_password: MJacksonIsNotDead'
+
+  tasks:
+  - include: $repository_basedir/mysql/tasks/setup.yml
+
+  handlers:
+  - include: $repository_basedir/mysql/handlers/handlers.yml

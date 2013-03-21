@@ -5,12 +5,12 @@
   sudo: True
 
   vars:
-    repository_basedir: ../
+    repository_basedir: ..
 
   vars_files:
     - $repository_basedir/apache/vars/main.yml
 #    - example_settings_file.yml
-    
+
   tasks:
     # Install Apache server, a default virtual host and default config files
     - include: $repository_basedir/apache/tasks/setup.yml

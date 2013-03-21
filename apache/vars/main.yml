@@ -5,8 +5,8 @@
 apache_flavor: "prefork"
 
 # Httpd user and group
-apache_user: "www-data"
-apache_group: "www-data"
+# apache_user: "www-data"
+# apache_group: "www-data"
 
 # Default apache base directory (without trailing '/')
 apache_root: "/var/www"

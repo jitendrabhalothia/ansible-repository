@@ -8,8 +8,8 @@
     repository_basedir: ..
     git_username: Some User
     git_usermail: someuser@somedomain.com
-    
+
   tasks:
-    # Install Git 
+    # Install Git
     - include: $repository_basedir/git/tasks/setup.yml
 

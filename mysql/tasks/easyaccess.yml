@@ -1,0 +1,16 @@
+---
+# Part: MySQL
+# File: easyaccess.yml
+#
+# Description: Set a user's default mysql-client IDs as root. DO NOT DO THIS IS A PRODUCTION SERVER.
+#
+# Dependencies ([part:]type:filename):
+# - tasks:setup.yml
+#
+# OS familly: Debian
+
+- name: MySQL | Config for easy access as user $user
+  template:
+    src=$repository_basedir/mysql/templates/user_my.cnf.j2
+    dest=/home/$user/.my.cnf
+    owner=$user mode=0600

@@ -1,6 +1,7 @@
 ---
+# Part: Git
 # File: setup.yml
-#         
+#
 # Description: Install and configure Git
 #
 # Parameters:
@@ -17,7 +18,7 @@
 
 # Install the default templates
 - name: Git | Push global config file
-  template: 
-    src=$repository_basedir/git/templates/gitconfig.j2 
+  template:
+    src=$repository_basedir/git/templates/gitconfig.j2
     dest=/etc/gitconfig
 

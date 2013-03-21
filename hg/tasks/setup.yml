@@ -1,6 +1,6 @@
 ---
 # File: setup.yml
-#         
+#
 # Description: Install and configure Mercurial
 #
 # Parameters:
@@ -17,7 +17,7 @@
 
 # Install the default templates
 - name: Hg | Push global hgrc template
-  template: 
-    src=$repository_basedir/hg/templates/hgrc.j2 
-    dest=/etc/mercurial/hgrc 
+  template:
+    src=$repository_basedir/hg/templates/hgrc.j2
+    dest=/etc/mercurial/hgrc
 
