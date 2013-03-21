@@ -6,7 +6,7 @@
 
   vars:
     repository_basedir: ..
-    mysql_root_password: MJacksonIsNotDead'
+    mysql_root_password: MJacksonIsNotDead
 
   tasks:
   - include: $repository_basedir/mysql/tasks/setup.yml

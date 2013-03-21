@@ -1,0 +1,60 @@
+---
+# Part: PHP
+# File: phpdev.yml
+#
+# Description: Install and configure PHP development packages from PEAR, PECL and other...
+#
+# Parameters:
+#
+# Dependencies ([part:]type:filename):
+# - tasks:setup.yml
+# - vars:main.yml (not necessary if you don't override defaults)
+#
+# OS familly: Debian
+
+- name: PHP | PHPDev | Install PHP development tools
+  apt: pkg=$item state=installed
+  with_items:
+    - php-pear
+    - make
+    - php5-dev
+    - libpcre3-dev
+
+
+# PEAR Packages
+- name: PHP | PHPDev | Update pear packages
+  command: pear upgrade
+
+- name: PHP | PHPDev | Set pear auto-discover
+  command: pear config-set auto_discover 1
+
+- name: PHP | PHPDev | Pear install the PHP QA Toolchain
+  command: pear install pear.phpqatools.org/phpqatools creates=/usr/bin/phpunit
+  #this fails often (dns problems, pear problems, etc. So just ignore the errors and continue.)
+  ignore_errors: True
+
+
+# PECL Packages
+- name: PHP | PHPDev | Test for previous XDebug install
+  shell:  php -i | grep -i 'xdebug'
+  register: php_pecl_xdebug_exists
+  ignore_errors: True
+
+- name: PHP | PHPDev | XDebug install
+  command: pecl install xdebug
+  when_failed: $php_pecl_xdebug_exists
+
+- name: PHP | PHPDev | Fetch PHP extension dir
+  shell: "php -i | grep -i '^extension_dir' | awk '{print $3}'"
+  register: php_extension_dir
+
+- name: PHP | PHPDev | Set xDebug config
+  template:
+    src=$repository_basedir/php/templates/xdebug.ini.j2
+    dest=/etc/php5/conf.d/xdebug.ini
+    owner=root group=root mode=0644
+
+
+# Other useful tools
+- name: PHP | PHPDev | Install composer
+  shell: curl -sS https://getcomposer.org/installer | /usr/bin/php && /bin/mv -f /home/vagrant/composer.phar /usr/local/bin/composer creates=/usr/local/bin/composer
