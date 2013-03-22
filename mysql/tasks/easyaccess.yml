@@ -6,6 +6,8 @@
 #
 # Dependencies ([part:]type:filename):
 # - tasks:setup.yml
+# - vars:main.yml (mysql_root_password variable)
+# - $user variable from ansible playbook.
 #
 # OS familly: Debian
 

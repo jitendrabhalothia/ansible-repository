@@ -1,0 +1,17 @@
+---
+# This is an example setup for a production MySQL simple server machine.
+#
+- hosts: prod_dbservers
+  user: root
+
+  vars:
+    repository_basedir: ..
+    bootstrap_upgrade: True
+
+  tasks:
+    # Update APT Caches and install base tools
+    - include: $repository_basedir/bootstrap/tasks/setup.yml
+    - include: $repository_basedir/mysql/tasks/setup.yml
+
+  handlers:
+    - include: $repository_basedir/mysql/handlers/handlers.yml

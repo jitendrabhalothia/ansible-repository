@@ -1,0 +1,5 @@
+---
+# Main playbook to deploy our simple production configuration.
+
+- include: webservers.yml
+- include: dbservers.yml

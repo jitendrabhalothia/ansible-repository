@@ -1,0 +1,26 @@
+---
+# Basic setup for a production webserver (Apache+PHP)
+#
+# 
+- hosts: prod_webservers
+  user: root
+
+  vars:
+    repository_basedir: ..
+    bootstrap_upgrade: FALSE
+
+  tasks:
+    # Update APT Caches and install base tools
+    - include: $repository_basedir/bootstrap/tasks/setup.yml
+
+    # Install & configure the Apache server
+    - include: $repository_basedir/apache/tasks/setup.yml
+    - include: $repository_basedir/apache/tasks/module_enable.yml module=rewrite
+
+    # Install PHP cli & apache
+    - include: $repository_basedir/php/tasks/setup.yml
+    - include: $repository_basedir/php/tasks/apache.yml
+    - include: $repository_basedir/mysql/tasks/php.yml
+
+  handlers:
+    - include: $repository_basedir/apache/handlers/handlers.yml

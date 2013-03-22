@@ -1,0 +1,11 @@
+git_username: USERNAME
+git_usermail: USER_EMAIL
+hg_username: "USERNAME <USER EMAIL>"
+
+# Simplify administration
+mysql_root_password: "root"
+
+# Enable remote debugging from host machine.
+php_xdebug_remote_enable: 1
+php_xdebug_remote_host: '198.168.33.1'
+

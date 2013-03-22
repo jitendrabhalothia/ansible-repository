@@ -1,0 +1,51 @@
+---
+# This is an example playbook to configure a base LAMP development machine.
+#
+# Don't forget to edit the git and hg ids, the xdebug remote host IP.
+# mysql password and ssh information.
+- hosts: devmachines
+  user: root
+
+  vars:
+    repository_basedir: ..
+    bootstrap_upgrade: True
+    apache_flavor: prefork
+    apache_root: /var/www
+    git_username: USERNAME
+    git_usermail: USER_EMAIL
+    hg_username: "USERNAME <USER EMAIL>"
+
+    # Simplify administration
+    mysql_root_password: "root"
+
+    # Enable remote debugging from host machine.
+    php_xdebug_remote_enable: 1
+    php_xdebug_remote_host: '198.168.33.1'
+    
+
+  tasks:
+    # Update APT Caches and install base tools
+    - include: $repository_basedir/bootstrap/tasks/setup.yml
+
+    # Install & configure the Apache server
+    - include: $repository_basedir/apache/tasks/setup.yml
+    - include: $repository_basedir/apache/tasks/module_enable.yml module=rewrite
+
+    # Git & Hg always comme in handy in a development machine
+    - include: $repository_basedir/git/tasks/setup.yml
+    - include: $repository_basedir/hg/tasks/setup.yml
+
+    # No LAMP without MySQL
+    - include: $repository_basedir/mysql/tasks/setup.yml
+    - include: $repository_basedir/mysql/tasks/easyaccess.yml user=vagrant
+
+    # Install PHP cli & apache, and the usual dev tools: phpunit, composer, xdebug, ...
+    - include: $repository_basedir/php/tasks/setup.yml
+    - include: $repository_basedir/php/tasks/apache.yml
+    - include: $repository_basedir/php/tasks/phpdev.yml
+    - include: $repository_basedir/mysql/tasks/php.yml
+
+
+  handlers:
+    - include: $repository_basedir/apache/handlers/handlers.yml
+    - include: $repository_basedir/mysql/handlers/handlers.yml
