@@ -12,7 +12,7 @@
 #
 # OS familly: Debian
 
-- name: PHP | PHPDev | Install PHP development tools
+- name: PHP | PHPDev | Install PHP development packages
   apt: pkg=$item state=installed
   with_items:
     - php-pear

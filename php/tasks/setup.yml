@@ -9,7 +9,7 @@
 # Dependencies ([part:]type:filename):
 # - vars:main.yml (not necessary if you don't override defaults)
 #
-# OS familly: Debian
+# OS familly: Ubuntu >= 12.04
 
 - name: PHP | Install the distribution's PHP-CLI base packages
   apt: pkg=$item state=installed force=yes
@@ -26,9 +26,19 @@
     dest=/etc/php5/cli/php.ini
     owner=root group=root mode=0644
 
-# APC
-- name: PHP | Set APC config
+# APC (with php extensions directory for >= 12.10)
+- name: "PHP | Set APC config (Ubuntu >= 12.10)"
   template:
     src=$repository_basedir/php/templates/apc.ini.j2
     dest=/etc/php5/mods-available/apc.ini
     owner=root group=root mode=0644
+  when_string: $ansible_lsb.release == "12.10"
+
+# APC (with php extensions directory for < 12.10)
+- name: "PHP | Set APC config (Ubuntu <= 12.04)"
+  template:
+    src=$repository_basedir/php/templates/apc.ini.j2
+    dest=/etc/php5/conf.d/apc.ini
+    owner=root group=root mode=0644
+  when_string: $ansible_lsb.release != "12.10"
+
