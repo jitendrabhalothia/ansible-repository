@@ -9,7 +9,7 @@
 #
 # Dependencies ([part:]type:filename):
 #
-# OS familly: Debian
+# OS familly: Ubuntu
 
 - name: Bootstrap | Update apt caches.
   command: apt-get update

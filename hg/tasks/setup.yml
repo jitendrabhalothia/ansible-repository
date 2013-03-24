@@ -1,5 +1,6 @@
 ---
 # File: setup.yml
+# Part: Hg
 #
 # Description: Install and configure Mercurial
 #
@@ -7,7 +8,7 @@
 #
 # Dependencies ([part:]type:filename):
 #
-# OS familly: Debian
+# OS familly: Ubuntu
 
 
 - name: Hg | Install Mercurial base packages

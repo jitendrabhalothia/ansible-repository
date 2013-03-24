@@ -1,5 +1,6 @@
 ---
 # File: vhost_del.yml     
+# Part: Apache
 # 
 # Description: Delete a new virtual host
 #   
@@ -12,7 +13,7 @@
 # - handlers:handlers.yml
 # - vars/main.yml
 #
-# OS familly: Debian
+# OS familly: Ubuntu
 
 - name: Apache | Virtualhost delete | Remove document root at $apache_root/$docroot
   file: path=$apache_root/$docroot state=absent

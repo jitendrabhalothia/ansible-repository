@@ -10,7 +10,7 @@
 # - tasks:setup.yml
 # - vars:main.yml (not necessary if you don't override defaults)
 #
-# OS familly: Debian
+# OS familly: Ubuntu
 
 - name: PHP | PHPDev | Install PHP development packages
   apt: pkg=$item state=installed

@@ -1,6 +1,6 @@
 ---
-# Part: MySQL
 # File: setup.yml
+# Part: MySQL
 #
 # Description: Install, configure and secure a MySQL server
 #
@@ -10,7 +10,7 @@
 # Dependencies ([part:]type:filename):
 # - vars:main.yml (not necessary if you don't override defaults)
 #
-# OS familly: Debian
+# OS familly: Ubuntu
 
 
 # Install server using a preseed file to set the root password

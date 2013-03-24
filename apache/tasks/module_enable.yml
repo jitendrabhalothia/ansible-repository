@@ -1,5 +1,6 @@
 ---
 # File: module_enable.yml
+# Part: Apache
 #         
 # Description: Enable an Apache server
 #
@@ -9,7 +10,7 @@
 # Dependencies ([part:]type:filename):
 # - handlers:handlers.yml
 #
-# OS: Debian
+# OS: Ubuntu
 
 - name: Apache | Enable module | Enable $module
   command: a2enmod $module creates=/etc/apache2/mods-enabled/$module.load

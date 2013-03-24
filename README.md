@@ -1,10 +1,12 @@
 # ansible-repository
 
+A repository for ansible playbooks and snippets that can be use to provision LAMP stacks.
 
-A repository for ansible playbooks and snippets.
+The repository is structured in "Parts", where a part is a set of task files, 
+handler files and variable files that perform some job, like install and configure PHP, or MySQL.
 
-**Work-in-progress.**
+For an example usage, checkout my repository [Vagrant setups](https://github.com/gaspaio/ansible-setups) 
+and the corresponding blog post [Virtualized local LAMP stacks with Vagrant, Veewee and Ansible](http://www.rripado.info/blog/2013/03/23/vitualized-local-stacks-with-vagrant-veewee-and-ansible).
 
-You should comme back in a few days.
-
+The Ansible "Parts" contained in this repository do not adress every linux distribution out there, only the latest Ubuntu LTS and the latest normal releases, 12.04 and 12.10. I'll try to keep it up to date.
 

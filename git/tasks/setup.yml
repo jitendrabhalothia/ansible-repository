@@ -1,6 +1,6 @@
 ---
-# Part: Git
 # File: setup.yml
+# Part: Git
 #
 # Description: Install and configure Git
 #
@@ -9,7 +9,7 @@
 # Dependencies ([part:]type:filename):
 # - vars:main.yml (not necessary if you don't override defaults)
 #
-# OS familly: Debian
+# OS familly: Ubuntu
 
 - name: Git | Install git base packages
   apt: pkg=$item state=installed

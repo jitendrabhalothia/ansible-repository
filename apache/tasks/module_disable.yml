@@ -1,5 +1,6 @@
 ---
 # File: module_disable.yml
+# Part: Apache
 #         
 # Description: Disable an apache module Apache server
 #
@@ -9,7 +10,7 @@
 # Dependencies ([part:]type:filename):
 # - handlers:handlers.yml
 #
-# OS: Debian
+# OS: Ubuntu
 
 - name: Apache | Disable module | Disable $module
   command: a2dismod $module removes=/etc/apache2/mods-enabled/$module.load

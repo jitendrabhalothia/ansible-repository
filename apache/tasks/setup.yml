@@ -1,5 +1,6 @@
 ---
 # File: setup.yml
+# Part: Apache
 #
 # Description: Install and configure an Apache server
 #
@@ -9,7 +10,7 @@
 # - vars:main.yml
 # - handlers:handlers.yml
 #
-# OS familly: Debian
+# OS familly: Ubuntu
 
 - name: Apache | Install Apache-$apache_flavor
   apt: pkg=apache2-mpm-$apache_flavor state=installed
