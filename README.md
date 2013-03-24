@@ -1,6 +1,6 @@
 # ansible-repository
 
-A repository for ansible playbooks and snippets that can be use to provision LAMP stacks.
+A repository for ansible playbooks and snippets for provisionning LAMP stacks.
 
 The repository is structured in "Parts", where a part is a set of task files, 
 handler files and variable files that perform some job, like install and configure PHP, or MySQL.
