@@ -1,0 +1,34 @@
+---
+# File: vim.yml
+# Part: Bootstrap
+#
+# Description: Install VIM + plugins
+#
+# Parameters:
+# - TODO.
+#
+# Dependencies ([part:]type:filename):
+# - Bootstrap:setup.yml
+#
+# OS familly: Ubuntu
+
+- name: Bootstrap | Vim | Install vim package
+  apt: pkg=vim state=present
+
+- name: "Bootstrap | Vim | Install Pathogen for user '$user' - create .vim contents"
+  file: path=$item group=$user owner=$user state=directory
+  with_items:
+  - /home/$user/.vim
+  - /home/$user/.vim/autoload
+  - /home/$user/.vim/bundle
+
+- name: Bootstrap | Vim | Install pathogen for user '$user'
+  command: curl -Sso /home/$user/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+  creates: /home/$user/.vim/autoload/pathogen.vim
+
+- name: Bootstrap | Vim | Push vimrc for user '$user'
+  template:
+    src=/$repository_basedir/bootstrap/templates/vimrc.j2
+    dest=/home/$user/.vimrc
+    owner=$user group=$user
+
