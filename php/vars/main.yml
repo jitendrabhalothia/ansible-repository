@@ -13,6 +13,7 @@ php_main_timezone: 'Europe/Paris'
 
 #APC settings
 php_apc_shm_size: '32M'
+php_apc_shm_segments: 1
 php_apc_stat: 1
 
 # Xdebug settings
