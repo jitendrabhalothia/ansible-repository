@@ -7,7 +7,7 @@ handler files and variable files that perform some job, like install and configu
 
 For an example usage, checkout:
 
-* my repository [Vagrant setups](https://github.com/gaspaio/ansible-setups) 
+* my repository [Vagrant setups](https://github.com/gaspaio/vagrant-setups) 
 
 * the corresponding blog post [Virtualized local LAMP stacks with Vagrant, Veewee and Ansible](http://www.rripado.info/blog/virtualized-local-lamp-stacks-with-vagrant-veewee-and-ansible/)
 
