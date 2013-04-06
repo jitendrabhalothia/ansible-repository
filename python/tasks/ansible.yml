@@ -1,0 +1,28 @@
+---
+# File: ansible.yml
+# Part: Python
+#
+# Description: Install Ansible
+#
+# Parameters:
+#
+# Dependencies ([part:]type:filename):
+# - setup.yml
+#
+# OS familly: Ubuntu >= 12.04
+
+- name: Python | Ansible | Install Ansible system-wide via Pip
+  pip: name=ansible state=latest
+
+- name: Python | Ansible | Create global config dir
+  file:
+    path=/etc/ansible
+    state=directory
+    owner=root group=root mode=0644
+
+- name: Python | Ansible | Push basic inventory
+  template:
+    src=$repository_basedir/python/templates/ansible_hosts.j2
+    dest=/etc/ansible/hosts
+    owner=root group=root mode=0644
+

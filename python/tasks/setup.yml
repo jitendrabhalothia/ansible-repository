@@ -1,0 +1,20 @@
+---
+# File: setup.yml
+# Part: Python
+#
+# Description: Install and configure a Python development environment
+#
+# Parameters:
+#
+# Dependencies ([part:]type:filename):
+# - vars:main.yml (not necessary if you don't override defaults)
+#
+# OS familly: Ubuntu >= 12.04
+
+- name: Python | Install the distribution's Python base packages
+  apt: pkg=$item state=installed force=yes
+  with_items:
+    - python-dev
+    - python-pip
+    - python-virtualenv
+
