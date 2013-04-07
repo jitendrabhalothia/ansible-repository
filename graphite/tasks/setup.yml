@@ -13,70 +13,70 @@
 # OS familly: Ubuntu >= 12.04
 
 # Install Cairo (it doesn't play nicelly with virtualenv and pip)
-- name: Graphite | Install Cairo system wide.
-  apt:
-    pkg=$item
-    state=installed
-    force=yes
-  with_items:
-    - python-cairo
-    - python-cairo-dev
+# - name: Graphite | Install Cairo system wide
+#   apt:
+#     pkg=$item
+#     state=installed
+#     force=yes
+#   with_items:
+#     - python-cairo
+#     - python-cairo-dev
 
-- name: Graphite | Copy requirements file
-  copy:
-    src=$repository_basedir/graphite/files/graphite_requirements.txt
-    dest=/tmp/graphite_requirements.txt
+# - name: Graphite | Copy requirements file
+#   copy:
+#     src=$repository_basedir/graphite/files/graphite_requirements.txt
+#     dest=/tmp/graphite_requirements.txt
 
-- name: Graphite | Install PIP modules
-  pip:
-    requirements=/tmp/graphite_requirements.txt
-    virtualenv=$graphite_venv_path
+# - name: Graphite | Install PIP modules
+#   pip:
+#     requirements=/tmp/graphite_requirements.txt
+#     virtualenv=$graphite_venv_path
 
-- name: Graphite | Install Python 'requests'
-  pip:
-    name=requests
-    virtualenv=$graphite_venv_path
+# - name: Graphite | Install Python 'requests'
+#   pip:
+#     name=requests
+#     virtualenv=$graphite_venv_path
 
-- name: Graphite | Carbon: push carbon.conf config
+- name: Graphite | Carbon - push carbon.conf config
   template:
     src=$repository_basedir/graphite/templates/carbon.conf.j2
     dest=$graphite_venv_path/conf/carbon.conf
 
-- name: Graphite | Carbon: push storage-schemas config
+- name: Graphite | Carbon - push storage-schemas config
   template:
-    src=$repository_basedir/templates/storage-schemas.conf.j2
+    src=$repository_basedir/graphite/templates/storage-schemas.conf.j2
     dest=$graphite_venv_path/conf/storage-schemas.conf
 
-- name: Graphite | Webapp: push local_settings config
+- name: Graphite | Webapp - push local_settings config
   template:
-    src=$repository_basedir/templates/local_settings.py.j2
+    src=$repository_basedir/graphite/templates/local_settings.py.j2
     dest=$graphite_venv_path/webapp/graphite/local_settings.py
 
-- name: Graphite | Webapp: push graphTemplates config
+- name: Graphite | Webapp - push graphTemplates config
   template:
-    src=$repository_basedir/templates/graphTemplates.conf.j2
+    src=$repository_basedir/graphite/templates/graphTemplates.conf.j2
     dest=$graphite_venv_path/conf/graphTemplates.conf
 
-- name: Graphite | Webapp: push wsgi template
+- name: Graphite | Webapp - push wsgi template
   template:
-    src=$repository_basedir/templates/graphite.wsgi.j2
+    src=$repository_basedir/graphite/templates/graphite.wsgi.j2
     dest=$graphite_venv_path/conf/graphite.wsgi
 
-- name: Graphite | Webapp: push run-web.sh script
-  copy:
-    src=$repository_basedir/templates/run-web.sh
+- name: Graphite | Webapp - push run-web.sh script
+  template:
+    src=$repository_basedir/graphite/templates/run-web.sh.j2
     dest=$graphite_venv_path/run-web.sh mode=755
 
-- name: Graphite | Webapp: set up database
+- name: Graphite | Webapp - set up database
   shell:
     $graphite_venv_path/bin/python manage.py syncdb --noinput
     chdir=$graphite_venv_path/webapp/graphite
     creates=$graphite_venv_path/storage/graphite.db
 
-- name: Graphite | System: include system-site-packages in virtualenv
+- name: Graphite | System - include system-site-packages in virtualenv
   shell:
     virtualenv --system-site-packages $graphite_venv_path
 
-- name: Graphite | System: set ownership of all files to $username
+- name: Graphite | System - set ownership of all files to $graphite_user
   command:
     chown -R $graphite_user $graphite_venv_path
