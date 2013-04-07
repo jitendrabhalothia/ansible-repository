@@ -1,0 +1,25 @@
+
+# External variables
+# ------------------
+
+# Graphite runner
+# graphite_user:
+
+# Storage schemas
+# cf. http://graphite.readthedocs.org/en/0.9.10/config-carbon.html#storage-schemas-conf
+graphite_storage:
+- title: 'cpu_load'
+  #priority: '100'
+  pattern: '^servers\.'
+  retentions: '10s:2h'
+
+# graphite_storage_default: '60s:1d'
+
+# Defaults
+# ------------------
+
+# VirtualEnv Path (If this changes, then all settings templates should be rewritten)
+graphite_venv_path: /opt/graphite
+
+# Template
+# graphite_webapp_tz: Europe/Paris
