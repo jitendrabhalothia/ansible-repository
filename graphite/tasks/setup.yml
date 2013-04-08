@@ -13,29 +13,29 @@
 # OS familly: Ubuntu >= 12.04
 
 # Install Cairo (it doesn't play nicelly with virtualenv and pip)
-# - name: Graphite | Install Cairo system wide
-#   apt:
-#     pkg=$item
-#     state=installed
-#     force=yes
-#   with_items:
-#     - python-cairo
-#     - python-cairo-dev
+- name: Graphite | Install Cairo system wide
+  apt:
+    pkg=$item
+    state=installed
+    force=yes
+  with_items:
+    - python-cairo
+    - python-cairo-dev
 
-# - name: Graphite | Copy requirements file
-#   copy:
-#     src=$repository_basedir/graphite/files/graphite_requirements.txt
-#     dest=/tmp/graphite_requirements.txt
+- name: Graphite | Copy requirements file
+  copy:
+    src=$repository_basedir/graphite/files/graphite_requirements.txt
+    dest=/tmp/graphite_requirements.txt
 
-# - name: Graphite | Install PIP modules
-#   pip:
-#     requirements=/tmp/graphite_requirements.txt
-#     virtualenv=$graphite_venv_path
+- name: Graphite | Install PIP modules
+  pip:
+    requirements=/tmp/graphite_requirements.txt
+    virtualenv=$graphite_venv_path
 
-# - name: Graphite | Install Python 'requests'
-#   pip:
-#     name=requests
-#     virtualenv=$graphite_venv_path
+- name: Graphite | Install Python 'requests'
+  pip:
+    name=requests
+    virtualenv=$graphite_venv_path
 
 - name: Graphite | Carbon - push carbon.conf config
   template:
@@ -80,3 +80,8 @@
 - name: Graphite | System - set ownership of all files to $graphite_user
   command:
     chown -R $graphite_user $graphite_venv_path
+
+- name: Graphite | Carbon - start collection daemon
+  command:
+    $graphite_venv_path/bin/carbon-cache.py start
+  ignore_errors: True
