@@ -11,6 +11,9 @@
 # - Python:tasks:setup
 #
 # OS familly: Ubuntu >= 12.04
+#
+# Comments:
+# - Task list greatly inspired by https://github.com/jpmens/ansible-graphite
 
 # Install Cairo (it doesn't play nicelly with virtualenv and pip)
 - name: Graphite | Install Cairo system wide

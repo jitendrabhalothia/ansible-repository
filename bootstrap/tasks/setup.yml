@@ -25,4 +25,6 @@
     - curl
     - tmux
     - unzip
+    - python-software-properties # Dependencies for the apt module
+    - software-properties-common
 
