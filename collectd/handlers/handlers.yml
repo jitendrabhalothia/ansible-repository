@@ -1,0 +1,8 @@
+- name: collectd-start
+  service: name=collectd start=started
+
+- name: collectd-restart
+  service: name=collectd state=restarted
+
+- name: collectd-reload
+  service: name=collectd state=reloaded

@@ -1,0 +1,14 @@
+# File: main.yml
+# Part: Collectd
+
+collectd_version: "5.2.1"
+
+# If not defined, collectd will lookup the FDQN
+collectd_hostname: lth_local
+
+collectd_interval: 10
+
+# If set, will activate the graphite plugin
+collectd_graphite:
+  host: 127.0.0.1
+  port: 2003

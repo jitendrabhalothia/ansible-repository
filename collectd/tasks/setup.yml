@@ -1,0 +1,47 @@
+---
+# File: setup.yml
+# Part: Collectd
+#
+# Description: Install and configure Collectd
+#
+# Parameters:
+#
+# Dependencies ([part:]type:filename):
+#
+# OS familly: Ubuntu
+#
+# Comments:
+# - Collectd packages for 12.10 are reaaaaally old and a reliable ppa was nowhere to be found.
+# - Collectd only installs plugins if the necessary dependencies are installed.
+# @see http://git.verplant.org/?p=collectd.git;a=blob;hb=master;f=README
+
+- name: Collectd | Install $collectd_version from source - Verify dependencies
+  apt: pkg=$item state=present
+  with_items:
+  - build-essential
+  tags: build
+
+- name: Collected | Install $collectd_version from source - Download source
+  command: curl -sS http://collectd.org/files/collectd-${collectd_version}.tar.bz2 -o /tmp/collectd.tar.bz2
+  tags: download
+
+- name: Collected | Install $collectd_version from source - Unpack source
+  command: tar -xvf /tmp/collectd.tar.bz2 chdir=/tmp
+  tags: download
+
+- name: Collectd | Install 5.2 Collectd from source - configure and make
+  shell: "./configure && make all install chdir=/tmp/collectd-$collectd_version"
+  tags: build
+
+- name: Collectd | Install 5.2 Collectd from source - remove temp files
+  command: "rm -rf /tmp/collectd-$collectd_version /tmp/collectd.tar.bz2"
+  tags: build
+
+# # Install the default templates
+- name: Collectd | Push collectd config file
+  template:
+    src=$repository_basedir/collectd/templates/collectd.conf.j2
+    dest=/opt/collectd/etc/collectd.conf
+    owner=root group=root mode=0640
+  notify: collectd-restart
+  tags: configure
