@@ -9,3 +9,7 @@
 
   tasks:
     - include: $repository_basedir/mongodb/tasks/setup.yml
+    
+  handlers:
+    - include: $repository_basedir/mongodb/handlers/handlers.yml
+

@@ -1,5 +1,6 @@
 # File: main.yml
-# Part: Ansible
+# Part: MongoDB
 
-# Where to clone the ansible-repository repository
-ansible_repodir: "/opt/ansible-repository"
+mongodb_nohttpinterface: "true"
+mongodb_bind_ip: "127.0.0.1"
+
