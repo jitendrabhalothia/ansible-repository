@@ -1,7 +1,8 @@
 ---
 
 - hosts: local
-  user: root
+  user: vagrant
+  sudo: True
 
   vars:
     repository_basedir: ../..
