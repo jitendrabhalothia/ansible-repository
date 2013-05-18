@@ -9,7 +9,7 @@
 # Dependencies ([part:]type:filename):
 # - vars:main.yml (not necessary if you don't override defaults)
 #
-# OS familly: Ubuntu
+# OS familly: Ubuntu >= 12.04
 
 - name: Git | Install git base packages
   apt: pkg=$item state=installed
@@ -21,4 +21,3 @@
   template:
     src=$repository_basedir/git/templates/gitconfig.j2
     dest=/etc/gitconfig
-

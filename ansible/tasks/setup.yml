@@ -1,0 +1,31 @@
+---
+# File: tasks.yml
+# Part: Ansible
+#
+# Description: Install Ansible via Pip
+#
+# Parameters:
+#
+# Dependencies ([part:]type:filename):
+# - Python:task:setup.yml
+#   Git:task:setup.yml
+#
+# OS familly: Ubuntu >= 12.04
+
+- name: Ansible | Install Ansible system-wide via Pip
+  pip: name=ansible state=latest
+
+- name: Ansible | Create global config dir
+  file:
+    path=/etc/ansible
+    state=directory
+    owner=root group=root mode=0644
+
+- name: Ansible | Push basic inventory
+  template:
+    src=$repository_basedir/ansible/templates/ansible_hosts.j2
+    dest=/etc/ansible/hosts
+    owner=root group=root mode=0644
+
+- name: Ansible | Install the ansible repository_basedir
+  git: repo=git://github.com/gaspaio/ansible-repository.git dest=$ansible_repodir version=master

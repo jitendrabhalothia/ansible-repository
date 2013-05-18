@@ -1,0 +1,8 @@
+---
+
+- hosts: webservers
+  user: vagrant
+  sudo: True
+
+  tasks:
+  - include: $repository_basedir/python/tasks/setup.yml
