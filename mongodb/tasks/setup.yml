@@ -1,0 +1,17 @@
+---
+# File: tasks.yml
+# Part: Mongodb
+#
+# Description:
+# - Install MongoDB from 10gen packages
+#
+# Parameters:
+#
+# Dependencies ([part:]type:filename):
+#
+# OS familly: Ubuntu >= 12.04
+
+- name: MongoDB | Fetch 10Gen signing key
+  apt_key: id=7F0CEB10 state=present
+  pip: name=ansible state=latest
+

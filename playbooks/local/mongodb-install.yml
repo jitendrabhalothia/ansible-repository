@@ -1,0 +1,10 @@
+---
+
+- hosts: local
+  user: root
+
+  vars:
+    repository_basedir: ../..
+
+  tasks:
+    - include: $repository_basedir/mongodb/tasks/setup.yml

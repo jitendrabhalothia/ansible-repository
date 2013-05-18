@@ -1,0 +1,5 @@
+# File: main.yml
+# Part: Ansible
+
+# Where to clone the ansible-repository repository
+ansible_repodir: "/opt/ansible-repository"
