@@ -16,9 +16,6 @@
   apt: pkg=$item state=installed
   with_items:
     - php-pear
-    - make
-    - php5-dev
-    - libpcre3-dev
 
 
 # PEAR Packages

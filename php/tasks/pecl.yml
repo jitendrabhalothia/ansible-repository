@@ -1,0 +1,34 @@
+---
+# Part: PHP
+# File: pecl.yml
+#
+# Description: Manage Pecl package installations
+#
+# Parameters:
+#   $package
+#
+# Dependencies ([part:]type:filename):
+# - tasks:setup.yml
+#
+# OS familly: Ubuntu
+#- name: PHP | PECL | Install PHP development packages
+#  apt: pkg=$item state=installed
+#  with_items:
+#    - make
+#    - php5-dev
+#    - libpcre3-dev
+
+- name: PHP | PECL | Test for previous "$package" install
+  shell:  pecl list | grep -i '$package'
+  register: php_${package}_exists
+  ignore_errors: True
+
+#- name: PHP | PECL | Install $package
+#  command: pecl install $package
+#  when_failed: php_${package}_exists
+
+#- name: PHP | PECL | Set $package config
+#  template:
+#    src=$repository_basedir/php/templates/${package}.ini.j2
+#    dest=/etc/php5/conf.d/xdebug.ini
+#    owner=root group=root mode=0644
