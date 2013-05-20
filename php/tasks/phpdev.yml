@@ -17,7 +17,9 @@
   with_items:
     - php-pear
 
+
 # PEAR Packages
+# ####################
 - name: PHP | PHPDev | Update pear packages
   command: pear upgrade
 
@@ -26,20 +28,44 @@
 
 - name: PHP | PHPDev | Pear install the PHP QA Toolchain
   command: pear install pear.phpqatools.org/phpqatools creates=/usr/bin/phpunit
-  #this fails often (dns problems, pear problems, etc. So just ignore the errors and continue.)
+  # this fails often (dns problems, pear problems, etc. So just ignore the errors and continue.)
   ignore_errors: True
 
 
 # PECL Packages
+# #####################
+
+# XDebug
 - name: PHP | PHPDev | Fetch PHP extension dir
   shell: "php -i | grep -i '^extension_dir' | awk '{print $3}'"
   register: php_extension_dir
 
-- include: $repository_basedir/php/tasks/pecl.yml package=xdebug
+- include: $repository_basedir/php/tasks/pecl.yml package=xdebug version=stable
 
+# XHProf
+- include: $repository_basedir/php/tasks/pecl.yml package=xhprof version=beta
+
+- name: "PHP | PHPDev | Create xhprof cheatsheet directory : /opt/xhprof"
+  file:
+    path=/opt/xhprof
+    mode=0755
+    state=directory
+
+- name: "PHP | PHPDev | Put xhprof quick loading header and footer + usage instructions in /opt/xhprof"
+  copy:
+    src=$repository_basedir/php/files/xhprof/$item
+    dest=/opt/xhprof/$item
+    mode=0644
+  with_items:
+  - xhprof_footer.php
+  - xhprof_header.php
+  - xhprof_notes.txt
+
+# TODO: Create a virtual host for the xhprof GUI (the default one).
+# TODO: Create a virtual host for the APC GUI.
 
 # Other useful tools
 - name: PHP | PHPDev | Install composer
-  shell: 
-    curl -sS https://getcomposer.org/installer | /usr/bin/php && /bin/mv -f /home/vagrant/composer.phar /usr/local/bin/composer 
+  shell:
+    curl -sS https://getcomposer.org/installer | /usr/bin/php && /bin/mv -f /home/vagrant/composer.phar /usr/local/bin/composer
     creates=/usr/local/bin/composer

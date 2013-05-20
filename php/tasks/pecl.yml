@@ -6,7 +6,8 @@
 #   Supposes the config template file php/templates/${package}.ini.j2 exists
 #
 # Parameters:
-# - $package
+# - $package : the package to install
+# - $version : stable, beta, alpha
 #
 # Dependencies ([part:]type:filename):
 # - tasks:setup.yml
@@ -22,11 +23,11 @@
   register: php_package_exists
   ignore_errors: yes
 
-- name: PHP | PECL | Install $package
-  command: pecl install $package
+- name: PHP | PECL | Install ${package}-${version}
+  command: pecl install ${package}-${version}
   when_failed: ${php_package_exists}
 
-- name: PHP | PECL | Set $package config
+- name: PHP | PECL | Set $package config (Ubuntu == 12.04)
   template:
     src=$repository_basedir/php/templates/${package}.ini.j2
     dest=/etc/php5/conf.d/${package}.ini

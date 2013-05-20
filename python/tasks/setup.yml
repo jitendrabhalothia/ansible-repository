@@ -12,7 +12,7 @@
 # OS familly: Ubuntu >= 12.04
 
 - name: Python | Install the distribution's Python base packages
-  apt: pkg=$item state=installed force=yes
+  apt: pkg=$item state=installed
   with_items:
     - python-dev
     - python-pip
