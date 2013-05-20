@@ -1,37 +1,38 @@
 ---
-# File: vhost_add.yml     
+# File: vhost_add.yml
 # Part: Apache
 #
 # Description: Create a new virtual host
-#   
+#
 # Parameters:
-# - $docroot : virtualhost docroot path, relative to $apache_root
+# - $docroot : absolute docroot path
 # - $vhost : virtualhost name
 # - $create_docroot : create the docroot directory in the filesystem (if it doesn't exist) and push a default index file.
+# - $port : 80 by default
+# - $interfaces : * by default
 #
 # Dependencies-internal ([part:]type:filename):
 # - handlers:handlers.yml
-# - vars/main.yml
 #
 # OS familly: Ubuntu
 
-- name: Apache | Virtualhost add | Create document root at $apache_root/$docroot
-  file: 
-    path=$apache_root/$docroot 
-    state=directory 
+- name: Apache | Virtualhost add | Create document root at $docroot
+  file:
+    path=$docroot
+    state=directory
   when_boolean: $create_docroot
 
 - name: Apache | Virtualhost add | Push default index file to docroot
-  template: 
-    src=$repository_basedir/apache/templates/default_index.html.j2 
-    dest=$apache_root/$docroot/index.html 
+  template:
+    src=$repository_basedir/apache/templates/default_index.html.j2
+    dest=$docroot/index.html
   when_boolean: $create_docroot
   notify:
   - apache-reload
 
 - name: Apache | Virtualhost add | Push virtualhost configuration template
-  template: 
-    src=$repository_basedir/apache/templates/virtualhost.j2 
+  template:
+    src=$repository_basedir/apache/templates/virtualhost.j2
     dest=/etc/apache2/sites-available/$vhost
   notify:
   - apache-reload
@@ -40,4 +41,3 @@
   command: /usr/sbin/a2ensite $vhost creates=/etc/apache2/sites-enabled/$vhost
   notify:
   - apache-reload
-

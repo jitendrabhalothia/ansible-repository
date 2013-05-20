@@ -1,22 +1,21 @@
 ---
-# File: vhost_del.yml     
+# File: vhost_del.yml
 # Part: Apache
-# 
+#
 # Description: Delete a new virtual host
-#   
+#
 # Parameters:
-# - $docroot : virtualhost docroot path, relative to $apache_root
+# - $docroot : absolute docroot path
 # - $vhost : virtualhost name
 # - $remove_docroot : remove the docroot directory from the filesystem.
 #
 # Dependencies-internal ([part:]type:filename):
 # - handlers:handlers.yml
-# - vars/main.yml
 #
 # OS familly: Ubuntu
 
-- name: Apache | Virtualhost delete | Remove document root at $apache_root/$docroot
-  file: path=$apache_root/$docroot state=absent
+- name: Apache | Virtualhost delete | Remove document root at $docroot
+  file: path=$docroot state=absent
   when_boolean: $remove_docroot
   notify:
   - apache-reload
