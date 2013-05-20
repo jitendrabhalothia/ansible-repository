@@ -16,6 +16,7 @@
   apt: pkg=$item state=installed
   with_items:
     - php-pear
+    - graphviz
 
 
 # PEAR Packages
