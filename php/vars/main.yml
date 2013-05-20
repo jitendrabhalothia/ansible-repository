@@ -19,3 +19,6 @@ php_apc_stat: 1
 # Xdebug settings
 php_xdebug_remote_host: '127.0.0.1'
 php_xdebug_remote_enable: 1
+
+# XHprof
+php_xhprof_output: /tmp/xhprof

@@ -16,12 +16,11 @@
   apt: pkg=$item state=installed
   with_items:
     - php-pear
-    - make
-    - php5-dev
-    - libpcre3-dev
+    - graphviz
 
 
 # PEAR Packages
+# ####################
 - name: PHP | PHPDev | Update pear packages
   command: pear upgrade
 
@@ -30,31 +29,44 @@
 
 - name: PHP | PHPDev | Pear install the PHP QA Toolchain
   command: pear install pear.phpqatools.org/phpqatools creates=/usr/bin/phpunit
-  #this fails often (dns problems, pear problems, etc. So just ignore the errors and continue.)
+  # this fails often (dns problems, pear problems, etc. So just ignore the errors and continue.)
   ignore_errors: True
 
 
 # PECL Packages
-- name: PHP | PHPDev | Test for previous XDebug install
-  shell:  php -i | grep -i 'xdebug'
-  register: php_pecl_xdebug_exists
-  ignore_errors: True
+# #####################
 
-- name: PHP | PHPDev | XDebug install
-  command: pecl install xdebug
-  when_failed: $php_pecl_xdebug_exists
-
+# XDebug
 - name: PHP | PHPDev | Fetch PHP extension dir
   shell: "php -i | grep -i '^extension_dir' | awk '{print $3}'"
   register: php_extension_dir
 
-- name: PHP | PHPDev | Set xDebug config
-  template:
-    src=$repository_basedir/php/templates/xdebug.ini.j2
-    dest=/etc/php5/conf.d/xdebug.ini
-    owner=root group=root mode=0644
+- include: $repository_basedir/php/tasks/pecl.yml package=xdebug version=stable
 
+# XHProf
+- include: $repository_basedir/php/tasks/pecl.yml package=xhprof version=beta
+
+- name: "PHP | PHPDev | Create xhprof cheatsheet directory : /opt/xhprof"
+  file:
+    path=/opt/xhprof
+    mode=0755
+    state=directory
+
+- name: "PHP | PHPDev | Put xhprof quick loading header and footer + usage instructions in /opt/xhprof"
+  copy:
+    src=$repository_basedir/php/files/xhprof/$item
+    dest=/opt/xhprof/$item
+    mode=0644
+  with_items:
+  - xhprof_footer.php
+  - xhprof_header.php
+  - xhprof_notes.txt
+
+# TODO: Create a virtual host for the xhprof GUI (the default one).
+# TODO: Create a virtual host for the APC GUI.
 
 # Other useful tools
 - name: PHP | PHPDev | Install composer
-  shell: curl -sS https://getcomposer.org/installer | /usr/bin/php && /bin/mv -f /home/vagrant/composer.phar /usr/local/bin/composer creates=/usr/local/bin/composer
+  shell:
+    curl -sS https://getcomposer.org/installer | /usr/bin/php && /bin/mv -f /home/vagrant/composer.phar /usr/local/bin/composer
+    creates=/usr/local/bin/composer
