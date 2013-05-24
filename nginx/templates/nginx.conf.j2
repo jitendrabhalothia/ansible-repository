@@ -1,3 +1,5 @@
+# {{ ansible_managed }}
+
 user {{ nginx_user|default('www-data') }};
 worker_processes {{ nginx_worker_processes|default('4') }};
 pid /run/nginx.pid;
