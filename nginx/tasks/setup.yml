@@ -1,0 +1,39 @@
+---
+# File: setup.yml
+# Part: Nginx
+#
+# Description: Install and configure an Nginx server
+#
+# Parameters:
+# - nginx_flavour (full|small)
+# Dependencies ([part:]type:filename):
+# - vars:main.yml
+# - handlers:handlers.yml
+#
+# OS familly: Ubuntu
+
+- name: Nginx | Add Nginx apt repository
+  apt_repository: repo=ppa:nginx/stable
+
+- name: Nginx | Install Nginx (Default 'Full' version)
+  apt:
+    pkg=nginx
+    update_cache=yes
+    force=yes
+
+#- name: Nginx | Push main config file
+#  template:
+#    src=$repository_basedir/nginx/templates/nginx.conf.j2
+#    dest=/etc/nginx/nginx.conf
+#    owner=root group=root mode=0644
+
+#- name: Nginx | Disable default virtual host
+#  file:
+#    path=/etc/nginx/sites-enabled/default
+#    state=absent
+
+#- name: Nginx | Insure Nginx is running
+#  service:
+#    name=nginx
+#    state=started
+

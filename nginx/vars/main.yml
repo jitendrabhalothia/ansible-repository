@@ -1,0 +1,5 @@
+# Nginx flavour : This should be playbook defined
+nginx_flavour: full
+
+# nginx_worker_processes: 4
+# nginx_user: www-data

@@ -1,0 +1,40 @@
+---
+# File: vhost_add.yml
+# Part: Nginx
+#
+# Description: Create a new virtual host
+#
+# Parameters:
+# - $root : docroot path
+# - $name: virtualhost name(s)
+# - $create_root : create the root directory in the filesystem (if it doesn't exist) and push a default index file.
+# - $port : 80 by default
+#
+# Dependencies-internal ([part:]type:filename):
+#
+# OS familly: Ubuntu
+
+- name: Nginx | Virtualhost add | Create document root at $root
+  file:
+    path=$root
+    state=directory
+  when_boolean: $create_root
+
+- name: Nginx | Virtualhost add | Push default index file
+  template:
+    src=$repository_basedir/nginx/templates/default_index.html.j2
+    dest=$root/index.html
+  when_boolean: $create_root
+
+- name: Nginx | Virtualhost add | Push virtualhost configuration file
+  template:
+    src=$repository_basedir/nginx/templates/virtualhost.conf.j2
+    dest=/etc/nginx/sites-available/${name}.conf
+
+- name: Nginx | Virtualhost add | Activate virtual host $name
+  file:
+    src=/etc/nginx/sites-available/${name}.conf
+    dest=/etc/nginx/sites-enabled/${name}.conf
+    state=link
+  notify:
+  - nginx-restart
