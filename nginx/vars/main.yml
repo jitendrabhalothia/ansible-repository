@@ -1,4 +1,5 @@
 # Nginx flavour : This should be playbook defined
+# Allowed values: full / light
 nginx_flavour: full
 
 # nginx_worker_processes: 4

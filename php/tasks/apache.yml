@@ -9,7 +9,7 @@
 # - apache:tasks:setup.yml
 # - vars:main.yml (not necessary if you don't override defaults)
 #
-# OS familly: Ubuntu
+# OS familly: Ubuntu (>= 12.04)
 
 - name: "PHP | Apache | Install the distribution's PHP & Apache's mod_php base packages"
   apt: pkg=$item state=installed

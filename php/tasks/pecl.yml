@@ -12,7 +12,8 @@
 # Dependencies ([part:]type:filename):
 # - tasks:setup.yml
 #
-# OS familly: Ubuntu
+# OS familly: Ubuntu (>= 12.04)
+
 - name: PHP | PECL | Insure PHP development packages are installed
   apt: pkg=$item state=installed
   with_items:

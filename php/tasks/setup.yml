@@ -9,7 +9,7 @@
 # Dependencies ([part:]type:filename):
 # - vars:main.yml (not necessary if you don't override defaults)
 #
-# OS familly: Ubuntu >= 12.04
+# OS familly: Ubuntu (>= 12.04)
 
 - name: PHP | Install the distribution's PHP-CLI base packages
   apt: pkg=$item state=installed force=yes

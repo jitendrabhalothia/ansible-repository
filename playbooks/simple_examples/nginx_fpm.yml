@@ -1,0 +1,32 @@
+---
+
+
+- hosts: myhosts
+  user: root
+
+  vars:
+    repository_basedir: ../..
+
+    bootstrap_upgrade: True
+
+    php_fpm_pools:
+    - name: www
+      user: www-data
+      group: www-data
+
+  tasks:
+  # Update APT Caches and install base tools
+  - include: $repository_basedir/bootstrap/tasks/setup.yml
+
+  # Install PHP cli & FPM with a default pool
+  - include: $repository_basedir/php/tasks/setup.yml
+  - include: $repository_basedir/php/tasks/php-fpm.yml
+
+  # Install nginx and a example server using the default fpm pool
+  - include: $repository_basedir/nginx/tasks/setup.yml
+  # The socket name should be /var/run/php5-fpm-<pool_name>.sock
+  - include: $repository_basedir/nginx/tasks/server_add.yml create_root=true name=domain.com root=/vagrant/www type=php socket=/var/run/php5-fpm-www.sock
+
+  handlers:
+  - include: $repository_basedir/nginx/handlers/handlers.yml
+  - include: $repository_basedir/php/handlers/handlers.yml

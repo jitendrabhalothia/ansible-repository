@@ -5,19 +5,20 @@
 # Description: Install and configure an Nginx server
 #
 # Parameters:
-# - nginx_flavour (full|small)
+# - nginx_flavour
+
 # Dependencies ([part:]type:filename):
 # - vars:main.yml
 # - handlers:handlers.yml
 #
-# OS familly: Ubuntu
+# OS familly: Ubuntu (>= 12.04)
 
 - name: Nginx | Add Nginx apt repository
   apt_repository: repo=ppa:nginx/stable
 
-- name: Nginx | Install Nginx (Default 'Full' version)
+- name: Nginx | Install Nginx ('$nginx_flavour' version)
   apt:
-    pkg=nginx
+    pkg=nginx-$nginx_flavour
     update_cache=yes
     force=yes
 
@@ -27,7 +28,7 @@
     dest=/etc/nginx/nginx.conf
     owner=root group=root mode=0644
 
-- name: Nginx | Disable default virtual host
+- name: Nginx | Disable default server block
   file:
     path=/etc/nginx/sites-enabled/default
     state=absent

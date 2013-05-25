@@ -1,0 +1,23 @@
+---
+# File: php-fpm_addpool.yml
+# Part: PHP
+#
+# Description: Configure PHP-FPM pool
+#
+# Parameters:
+# - fpm_pool: the pool configuration options (check vars.main for an example).
+#
+# Dependencies ([part:]type:filename):
+# - tasks:php.yml
+# - tasks:php-fpm.yml
+#
+# OS familly: Ubuntu (>= 12.04)
+
+# Push pool configurations
+- name: PHP | FPM | Push fpm configuration for pool ${fpm_pool.name}
+  template:
+    src=$repository_basedir/php/templates/php-fpm-pool.conf.j2
+    dest=/etc/php5/fpm/pool.d/${fpm_pool.name}.conf
+    owner=root group=root mode=0644
+  notify:
+  - php-fpm-restart

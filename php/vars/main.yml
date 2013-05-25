@@ -22,3 +22,11 @@ php_xdebug_remote_enable: 1
 
 # XHprof
 php_xhprof_output: /tmp/xhprof
+
+# FPM
+php_fpm_log_level: notice
+php_fpm_pools:
+- name: www
+  user: www-data
+  group: www-data
+

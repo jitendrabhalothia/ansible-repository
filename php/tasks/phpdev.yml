@@ -10,7 +10,7 @@
 # - tasks:setup.yml
 # - vars:main.yml (not necessary if you don't override defaults)
 #
-# OS familly: Ubuntu
+# OS familly: Ubuntu (>= 12.04)
 
 - name: PHP | PHPDev | Install PHP development packages
   apt: pkg=$item state=installed
@@ -62,9 +62,8 @@
   - xhprof_header.php
   - xhprof_notes.txt
 
-# TODO: Create a virtual host for the xhprof GUI (the default one).
-# TODO: Create a virtual host for the APC GUI.
-
+# TODO: optionnaly create a web host for the default xhprof GUI.
+# TODO: optionnaly create a web host for the APC GUI.
 
 # Other useful tools
 - name: PHP | PHPDev | Install composer
