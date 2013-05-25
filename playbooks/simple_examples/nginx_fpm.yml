@@ -9,6 +9,7 @@
 
     bootstrap_upgrade: True
 
+    nginx_flavour: full
     php_fpm_pools:
     - name: www
       user: www-data
