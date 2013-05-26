@@ -47,19 +47,19 @@ server {
         return 405;
     }
 
-    ## Including the php-fpm status and ping pages config.
-    ## Uncomment to enable if you're running php-fpm.
-    #include php_fpm_status_server.conf;
-
     ## Including the Nginx stub status page for having stats about
     ## Nginx activity: http://wiki.nginx.org/HttpStubStatusModule.
     include nginx_status_server.conf;
 
 {% if type == 'php' %}
     index  index.php;
+
+    # Including the php-fpm status and ping pages config.
+    include php_fpm_status_server.conf;
+
     # Pass PHP scripts to PHP-FPM
     location ~* \.php$ {
-        fastcgi_pass    unix:{{ socket }};
+        fastcgi_pass    {{ upstream }};
         include         fastcgi_params;
         fastcgi_param   SCRIPT_FILENAME    $document_root$fastcgi_script_name;
         fastcgi_param   SCRIPT_NAME        $fastcgi_script_name;

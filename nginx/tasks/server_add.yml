@@ -10,7 +10,7 @@
 # - $create_root : create the root directory in the filesystem (if it doesn't exist) and push a default index file.
 # - $port : 80 by default
 # - $type : html / php
-# - $socket : if $type = php, the php fcgi socket path
+# - $upstream : if $type = php, the upstream name
 #
 # Dependencies-internal ([part:]type:filename):
 # - handlers.yml

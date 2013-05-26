@@ -5,8 +5,7 @@
 # Description: Install and configure an Nginx server
 #
 # Parameters:
-# - nginx_flavour
-
+# - nginx_fcgi_fpm: load fpm specific configuration
 # Dependencies ([part:]type:filename):
 # - vars:main.yml
 # - handlers:handlers.yml
@@ -16,17 +15,29 @@
 - name: Nginx | Add Nginx apt repository
   apt_repository: repo=ppa:nginx/stable
 
-- name: Nginx | Install Nginx ('$nginx_flavour' version)
+- name: Nginx | Install Nginx ('full' version)
   apt:
-    pkg=nginx-$nginx_flavour
+    pkg=nginx
     update_cache=yes
     force=yes
 
-- name: Nginx | Push main config file
+- name: Nginx | Push config files
   template:
-    src=$repository_basedir/nginx/templates/nginx.conf.j2
-    dest=/etc/nginx/nginx.conf
+    src=$repository_basedir/nginx/templates/${item}.j2
+    dest=/etc/nginx/$item
     owner=root group=root mode=0644
+  with_items:
+  - nginx.conf
+  - upstream_fcgi.conf
+
+- name: Nginx | Push PHP-FPM specific config files
+  template:
+    src=$repository_basedir/nginx/templates/${item}.j2
+    dest=/etc/nginx/$item
+    owner=root group=root mode=0644
+  when_boolean: $nginx_fcgi_fpm
+  with_items:
+  - php_fpm_status_server.conf
 
 - name: Nginx | Push extra config files
   template:
@@ -36,7 +47,6 @@
   with_items:
   - blacklist.conf
   - nginx_status_server.conf
-  - php_fpm_status_server.conf
 
 - name: Nginx | Disable default server block
   file:

@@ -29,4 +29,5 @@ php_fpm_pools:
 - name: www
   user: www-data
   group: www-data
+  status: True    # Allow access to the status and ping URLs, at fpm-status-www and ping-www
 

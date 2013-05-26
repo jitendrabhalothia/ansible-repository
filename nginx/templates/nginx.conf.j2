@@ -99,6 +99,9 @@ http {
 	# Blacklist for bad bot and referer blocking.
 	include blacklist.conf;
 
+	# Include the upstream servers for FastCGI handling.
+    include upstream_fcgi.conf;
+
 
 	##
 	# nginx-naxsi config

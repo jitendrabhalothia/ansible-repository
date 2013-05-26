@@ -1,21 +1,31 @@
 ---
 
-
 - hosts: myhosts
-  user: root
+  user: vagrant
+  sudo: True
 
   vars:
-    repository_basedir: ../..
+    repository_basedir: ../../ansible-repository
+    # IPs allowed to access the status pages
+    nginx_status_ranges: ["127.0.0.1", "192.168.1.0/24"]
 
-    bootstrap_upgrade: True
+    # Load PHP-FPM specific config.
+    nginx_fcgi_fpm: True
 
-    nginx_flavour: full
+    # Define FCGI Upstream servers.
+    nginx_fastcgi_upstreams:
+    - name: www
+      keepalive: 5
+      servers: ["unix:/var/run/php5-fpm-www.sock"]
+
+    # FPM Pools used as upstream for nginx
     php_fpm_pools:
     - name: www
       user: www-data
       group: www-data
+      status: True
 
-  tasks:
+  tasks: 
   # Update APT Caches and install base tools
   - include: $repository_basedir/bootstrap/tasks/setup.yml
 
@@ -25,9 +35,9 @@
 
   # Install nginx and a example server using the default fpm pool
   - include: $repository_basedir/nginx/tasks/setup.yml
-  # The socket name should be /var/run/php5-fpm-<pool_name>.sock
-  - include: $repository_basedir/nginx/tasks/server_add.yml create_root=true name=domain.com root=/vagrant/www type=php socket=/var/run/php5-fpm-www.sock
+  - include: $repository_basedir/nginx/tasks/server_add.yml create_root=true name=test.webdev.vt root=/vagrant/www type=php upstream=www
 
   handlers:
   - include: $repository_basedir/nginx/handlers/handlers.yml
   - include: $repository_basedir/php/handlers/handlers.yml
+
