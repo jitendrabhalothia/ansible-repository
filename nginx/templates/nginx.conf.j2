@@ -87,14 +87,17 @@ http {
 
 	# Control access to status page, PHP-FPM status & ping pages, etc.
 	geo $dont_show_status {
-    	default 1;
-    	127.0.0.1 0;
-    	192.168.1.0/24 0;
+		default 1;
+{% for range in nginx_status_ranges %}
+		{{ range }} 0;
+{% else %}
+		127.0.0.1 0;
+		192.168.1.0/24 0;
+{% endfor %}
 	}
 
 	# Blacklist for bad bot and referer blocking.
-    include blacklist.conf;
-
+	include blacklist.conf;
 
 
 	##

@@ -36,7 +36,7 @@
   with_items:
   - blacklist.conf
   - nginx_status_server.conf
-  - nginx_fpm_status_server.conf
+  - php_fpm_status_server.conf
 
 - name: Nginx | Disable default server block
   file:

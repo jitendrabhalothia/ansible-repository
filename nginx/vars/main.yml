@@ -4,3 +4,5 @@ nginx_flavour: full
 
 # nginx_worker_processes: 4
 # nginx_user: www-data
+
+nginx_status_ranges: ["127.0.0.1", "192.168.1.0/24"]

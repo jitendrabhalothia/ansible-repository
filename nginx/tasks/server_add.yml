@@ -16,6 +16,12 @@
 # - handlers.yml
 # OS familly: Ubuntu
 
+- name: Nginx | Server add | Ensure $root doesn't exist
+  file:
+    path=$root
+    state=absent
+  when_boolean: $create_root
+
 - name: Nginx | Server add | Create document root at $root
   file:
     path=$root
@@ -28,16 +34,15 @@
     src=$repository_basedir/nginx/templates/default_index.${type}.j2
     dest=$root/index.${type}
   when_boolean: $create_root
+  notify:
+  - nginx-restart
 
 - name: Nginx | Server add | Push server configuration file
   template:
     src=$repository_basedir/nginx/templates/server.conf.j2
     dest=/etc/nginx/sites-available/${name}.conf
-
-- name: Nginx | Server add | Push server configuration file
-  template:
-    src=$repository_basedir/nginx/templates/server.conf.j2
-    dest=/etc/nginx/sites-available/${name}.conf
+  notify:
+  - nginx-restart
 
 - name: Nginx | Server add | Activate server host $name
   file:
