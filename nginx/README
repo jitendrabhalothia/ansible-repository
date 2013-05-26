@@ -1,5 +1,5 @@
-thanks @perusio
+These ansible files, templates, etc allow for a basic nginx config, no https (yet).
+Special config options are available for use with a PHP-FPM fcgi backend.
 
-Basic config, for a single pool, no https.
+The setup is greatly inspired by @perusio drupal nginx config (https://github.com/perusio/drupal-with-nginx)
 
-Special configs available for use with php-fpm
