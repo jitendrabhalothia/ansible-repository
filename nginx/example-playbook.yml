@@ -5,7 +5,6 @@
 
   vars:
     repository_basedir: ../../ansible-repository
-    nginx_flavour: full
 
   tasks:
     - include: $repository_basedir/nginx/tasks/setup.yml
