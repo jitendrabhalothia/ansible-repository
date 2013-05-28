@@ -18,7 +18,7 @@
 
 - name: PHP | Apache | Set php.ini Apache2 template
   template:
-    src=$repository_basedir/php/templates/php_apache.ini.j2
+    src=$repository_basedir/php/templates/php_web.ini.j2
     dest=/etc/php5/apache2/php.ini
     owner=root group=root mode=0644
   notify:
