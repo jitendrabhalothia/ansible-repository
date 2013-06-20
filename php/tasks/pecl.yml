@@ -33,19 +33,19 @@
     src=$repository_basedir/php/templates/${package}.ini.j2
     dest=/etc/php5/conf.d/${package}.ini
     owner=root group=root mode=0644
-  when_string: $ansible_lsb.release == "12.04"
+  when_string: ${ansible_lsb.release} == "12.04"
 
 - name: PHP | PECL | Set $package config (Ubuntu > 12.04)
   template:
     src=$repository_basedir/php/templates/${package}.ini.j2
     dest=/etc/php5/mods-available/${package}.ini
     owner=root group=root mode=0644
-  when_string: $ansible_lsb.release != "12.04"
+  when_string: ${ansible_lsb.release} != "12.04"
 
 - name: PHP | PECL | Set symbolic link to $package config (Ubuntu > 12.04)
   file:
     src=/etc/php5/mods-available/${package}.ini
     dest=/etc/php5/conf.d/20-${package}.ini
     owner=root group=root state=link
-  when_string: $ansible_lsb.release != "12.04"
+  when_string: ${ansible_lsb.release} != "12.04"
 
