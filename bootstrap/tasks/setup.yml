@@ -18,6 +18,9 @@
   command: apt-get upgrade -y
   when_boolean: $bootstrap_upgrade
 
+- name: Bootstrap | Install 'python-apt' module
+  command: apt-get install python-apt -y
+
 - name: Bootstrap | Install misc utils
   apt: pkg=$item state=present
   with_items:
