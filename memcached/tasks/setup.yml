@@ -1,0 +1,28 @@
+---
+# File: tasks.yml
+# Part: Memcached
+#
+# Description:
+# - Install Memcached from Ubuntu packages
+#
+# Parameters:
+#
+# Dependencies ([part:]type:filename):
+#
+# OS familly: Ubuntu >= 12.04
+
+- name: Memcached | Install Memcached package 
+  apt: pkg=memcached state=present
+
+- name: Memcached | Push default configuration template
+  template:
+    src=$repository_basedir/memcached/templates/memcached.conf.j2
+    dest=/etc/memcached.conf
+    owner=root group=root mode=0644
+  notify:
+  - memcached-restart
+
+# Insure service is running.
+- name: Memcached | Insure deamon is running correctly
+  service: name=memcached state=started
+
