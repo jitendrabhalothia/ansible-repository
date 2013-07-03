@@ -20,6 +20,7 @@
   with_items:
     - php5-dev
     - php-pear
+    - make
 
 - name: PHP | PECL | Test for previous "$package" install
   shell:  pecl list | grep -i '$package'
