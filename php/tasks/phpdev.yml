@@ -16,7 +16,6 @@
   apt: pkg=$item state=installed
   with_items:
     - php-pear
-    - graphviz
 
 
 # PEAR Packages
@@ -41,10 +40,10 @@
   shell: "php -i | grep -i '^extension_dir' | awk '{print $3}'"
   register: php_extension_dir
 
-- include: $repository_basedir/php/tasks/pecl.yml package=xdebug version=stable
+- include: $repository_basedir/php/tasks/pecl.yml package=xdebug version=stable stdin=
 
 # XHProf
-- include: $repository_basedir/php/tasks/pecl.yml package=xhprof version=beta
+- include: $repository_basedir/php/tasks/pecl.yml package=xhprof version=beta stdin=
 
 - name: "PHP | PHPDev | Create xhprof cheatsheet directory : /opt/xhprof"
   file:
@@ -62,10 +61,15 @@
   - xhprof_header.php
   - xhprof_notes.txt
 
+- name: "PHP | PHPDEV | Install graphviz for execution flow plotting by XhProf"
+  apt: pkg=graphviz state=installed
+
 # TODO: optionnaly create a web host for the default xhprof GUI.
 # TODO: optionnaly create a web host for the APC GUI.
 
+
 # Other useful tools
+# ######################
 - name: PHP | PHPDev | Install composer
   shell:
     curl -sS https://getcomposer.org/installer | /usr/bin/php && /bin/mv -f /home/vagrant/composer.phar /usr/local/bin/composer

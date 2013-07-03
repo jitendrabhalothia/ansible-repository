@@ -8,6 +8,7 @@
 # Parameters:
 # - $package : the package to install
 # - $version : stable, beta, alpha
+# - $stdin : input to send to the install process.
 #
 # Dependencies ([part:]type:filename):
 # - tasks:setup.yml
@@ -18,6 +19,7 @@
   apt: pkg=$item state=installed
   with_items:
     - php5-dev
+    - php-pear
 
 - name: PHP | PECL | Test for previous "$package" install
   shell:  pecl list | grep -i '$package'
@@ -25,7 +27,7 @@
   ignore_errors: yes
 
 - name: PHP | PECL | Install ${package}-${version}
-  command: pecl install ${package}-${version}
+  shell: echo $stdin | pecl install ${package}-${version}
   when_failed: ${php_package_exists}
 
 - name: PHP | PECL | Set $package config (Ubuntu == 12.04)
