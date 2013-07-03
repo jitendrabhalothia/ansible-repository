@@ -12,9 +12,10 @@
   # Install Memcached
   - include: $repository_basedir/memcached/tasks/setup.yml
 
-  # install PHP with Memcached bindings via the Memcache extension 
+  # Install PHP CLI 
   - include: $repository_basedir/php/tasks/setup.yml
 
+  # Install PHP bindings for Memcached 
   # The PECL extention for PHP has an option to install the session handlers during the install procedure
   # cf. php:pecl.yml for further info.
   - include: $repository_basedir/php/tasks/pecl.yml package=memcache version=beta stdin=Yes\n
