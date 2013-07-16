@@ -10,3 +10,6 @@ apache_flavor: "prefork"
 
 # Default apache base directory (without trailing '/')
 apache_root: "/var/www"
+
+apache_port_http: 80
+apache_port_https: 443
