@@ -16,11 +16,14 @@
   apt: pkg=apache2-mpm-$apache_flavor state=installed
 
 # Install the default templates
-- name: Apache | Configure envvars
+- name: Apache | Push configuration files
   template:
-    src=$repository_basedir/apache/templates/envvars.j2
-    dest=/etc/apache2/envvars
+    src=$repository_basedir/apache/templates/$item.j2
+    dest=/etc/apache2/$item
     owner=root group=root mode=0644
+  with_items:
+  - envvars
+  - ports.conf
 
 # Configure a default virtual host
 - name: Apache | Create document root for default virtual host at $apache_root/default
