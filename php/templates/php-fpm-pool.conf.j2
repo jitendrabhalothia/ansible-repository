@@ -1,9 +1,9 @@
 ; {{ ansible_managed }}
 
-; Start a new pool named '{{ fpm_pool.name }}'.
+; Start a new item.named '{{ item.name }}'.
 ; the variable $pool can we used in any directive and will be replaced by the
-; pool name ('{{ fpm_pool.name }}' here)
-[{{ fpm_pool.name }}]
+; pool name ('{{ item.name }}' here)
+[{{ item.name }}]
 
 ; Per pool prefix
 ; It only applies on the following directives:
@@ -16,13 +16,13 @@
 ; When not set, the global prefix (or /usr) applies instead.
 ; Note: This directive can also be relative to the global prefix.
 ; Default Value: none
-;prefix = /path/to/pools/$pool
+;prefix = /path/to/item./$pool
 
 ; Unix user/group of processes
 ; Note: The user is mandatory. If the group is not set, the default user's group
 ;       will be used.
-user = {{ fpm_pool.user|default('www-data') }}
-group = {{ fpm_pool.group|default('www-data') }}
+user = {{ item.user|default('www-data') }}
+group = {{ item.group|default('www-data') }}
 
 ; The address on which to accept FastCGI requests.
 ; Valid syntaxes are:
@@ -87,7 +87,7 @@ listen = /var/run/php5-fpm-$pool.sock
 ;             pm.process_idle_timeout   - The number of seconds after which
 ;                                         an idle process will be killed.
 ; Note: This value is mandatory.
-pm = {{ fpm_pool.pm|default('dynamic') }}
+pm = {{ item.pm|default('dynamic') }}
 
 ; The number of child processes to be created when pm is set to 'static' and the
 ; maximum number of child processes when pm is set to 'dynamic' or 'ondemand'.
@@ -98,22 +98,22 @@ pm = {{ fpm_pool.pm|default('dynamic') }}
 ; forget to tweak pm.* to fit your needs.
 ; Note: Used when pm is set to 'static', 'dynamic' or 'ondemand'
 ; Note: This value is mandatory.
-pm.max_children = {{ fpm_pool.pm_max_children|default('5') }}
+pm.max_children = {{ item.pm_max_children|default('5') }}
 
 ; The number of child processes created on startup.
 ; Note: Used only when pm is set to 'dynamic'
 ; Default Value: min_spare_servers + (max_spare_servers - min_spare_servers) / 2
-pm.start_servers = {{ fpm_pool.pm_start_servers|default('2') }}
+pm.start_servers = {{ item.pm_start_servers|default('2') }}
 
 ; The desired minimum number of idle server processes.
 ; Note: Used only when pm is set to 'dynamic'
 ; Note: Mandatory when pm is set to 'dynamic'
-pm.min_spare_servers = {{ fpm_pool.pm_min_spare_servers|default('1') }}
+pm.min_spare_servers = {{ item.pm_min_spare_servers|default('1') }}
 
 ; The desired maximum number of idle server processes.
 ; Note: Used only when pm is set to 'dynamic'
 ; Note: Mandatory when pm is set to 'dynamic'
-pm.max_spare_servers = {{ fpm_pool.pm_max_spare_servers|default('3') }}
+pm.max_spare_servers = {{ item.pm_max_spare_servers|default('3') }}
 
 ; The number of seconds after which an idle process will be killed.
 ; Note: Used only when pm is set to 'ondemand'
@@ -223,7 +223,7 @@ pm.max_spare_servers = {{ fpm_pool.pm_max_spare_servers|default('3') }}
 ;       anything, but it may not be a good idea to use the .php extension or it
 ;       may conflict with a real PHP file.
 ; Default Value: not set
-{% if not fpm_pool.status %};{% endif %} pm.status_path = /status-$pool
+{% if not item.status %};{% endif %} pm.status_path = /status-$pool
 
 ; The ping URI to call the monitoring page of FPM. If this value is not set, no
 ; URI will be recognized as a ping page. This could be used to test from outside
@@ -235,7 +235,7 @@ pm.max_spare_servers = {{ fpm_pool.pm_max_spare_servers|default('3') }}
 ;       anything, but it may not be a good idea to use the .php extension or it
 ;       may conflict with a real PHP file.
 ; Default Value: not set
-{% if not fpm_pool.status %};{% endif %} ping.path = /ping-$pool
+{% if not item.status %};{% endif %} ping.path = /ping-$pool
 
 ; This directive may be used to customize the response of a ping request. The
 ; response is formatted as text/plain with a 200 response code.

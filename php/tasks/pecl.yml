@@ -52,3 +52,9 @@
     owner=root group=root state=link
   when_string: ${ansible_lsb.release} != "12.04"
 
+# When PHP is running
+#- name: PHP | PECL | Notifying FPM to restart (if it is running)
+#  debug: msg="Restart PHP-FPM"
+#  when_failed: ${php_package_exists}
+#  notify:
+#  - php-fpm-restart

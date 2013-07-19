@@ -1,0 +1,22 @@
+---
+
+- hosts: webservers
+  user: vagrant
+  sudo: True
+
+  vars:
+    repository_basedir: ..
+    memcached_memory: 256
+
+  tasks:
+  # Install Memcached
+  - include: $repository_basedir/memcached/tasks/setup.yml
+
+  # Install PHP CLI 
+  - include: $repository_basedir/php/tasks/setup.yml
+
+  # Install PHP bindings for Memcached 
+  # The PECL extention for PHP has an option to install the session handlers during the install procedure
+  # cf. php:pecl.yml for further info.
+  - include: $repository_basedir/php/tasks/pecl.yml package=memcache version=beta stdin=Yes\n
+

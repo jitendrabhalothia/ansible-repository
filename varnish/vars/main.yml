@@ -1,0 +1,6 @@
+# File: main.yml
+# Part: Varnish
+
+varnish_port_http: "80"
+varnish_port_admin: "6082"
+
