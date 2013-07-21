@@ -33,6 +33,7 @@
   template:
     src=$repository_basedir/nginx/templates/default_index.${type}.j2
     dest=$root/index.${type}
+    mode=644
   when_boolean: $create_root
   notify:
   - nginx-restart
