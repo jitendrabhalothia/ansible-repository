@@ -1,0 +1,21 @@
+---
+# File: setup.yml
+# Part: Node
+#
+# Description: Install nodejs
+#
+# Parameters:
+#
+# Dependencies ([part:]type:filename):
+#
+# OS familly: Ubuntu >= 12.04
+
+- name: Node | Add Chris-Lea nodejs repository
+  apt_repository: repo="ppa:chris-lea/node.js"
+
+- name: Node | Install Node + NPM packages 
+  apt: pkg=$item state=present update_cache=yes
+  with_items:
+    - nodejs
+    - npm
+
