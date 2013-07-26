@@ -7,8 +7,8 @@
 # Debian etch). See /usr/share/doc/apache2.2-common/NEWS.Debian.gz and
 # README.Debian.gz
 
-NameVirtualHost *:{{ apache_port_http:default(80) }}
-Listen {{ apache_port_http:default(80) }}
+NameVirtualHost *:{{ apache_port_http|default('80') }}
+Listen {{ apache_port_http|default('80') }}
 
 <IfModule mod_ssl.c>
     # If you add NameVirtualHost *:443 here, you will also have to change
@@ -16,10 +16,10 @@ Listen {{ apache_port_http:default(80) }}
     # to <VirtualHost *:443>
     # Server Name Indication for SSL named virtual hosts is currently not
     # supported by MSIE on Windows XP.
-    Listen {{ apache_port_https:default(443) }}
+    Listen {{ apache_port_https|default('443') }}
 </IfModule>
 
 <IfModule mod_gnutls.c>
-    Listen {{ apache_port_https:default(443) }}
+    Listen {{ apache_port_https|default('443') }}
 </IfModule>
 

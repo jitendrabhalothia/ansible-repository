@@ -18,7 +18,7 @@
 # Install the default templates
 - name: Apache | Push configuration files
   template:
-    src=$repository_basedir/apache/templates/$item.j2
+    src=$repository_basedir/apache/templates/${item}.j2
     dest=/etc/apache2/$item
     owner=root group=root mode=0644
   with_items:
