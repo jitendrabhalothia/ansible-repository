@@ -24,8 +24,8 @@
 
 - name: Varnish | Push default configuration template
   template:
-    src=$repository_basedir/varnish/templates/varnish.conf.j2
-    dest=/etc/varnish/default.vcl
+    src=$repository_basedir/varnish/templates/varnish.default.j2
+    dest=/etc/default/varnish
     owner=root group=root mode=0644
   notify:
   - varnish-restart
