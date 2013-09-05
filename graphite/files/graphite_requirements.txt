@@ -1,8 +1,0 @@
-Django==1.3
-Flask==0.9
-graphite-web
-carbon==0.9.10
-whisper
-uwsgi
-simplejson
-django-tagging

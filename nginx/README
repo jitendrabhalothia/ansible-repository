@@ -1,5 +1,0 @@
-These ansible scripts allow for a basic nginx install, no https (yet).
-Special config options are available for use with a PHP-FPM fcgi backend.
-
-The setup is greatly inspired by @perusio's Drupal-Nginx config (https://github.com/perusio/drupal-with-nginx)
-

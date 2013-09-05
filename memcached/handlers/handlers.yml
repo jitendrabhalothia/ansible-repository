@@ -1,8 +1,0 @@
-- name: memcached-start
-  service: name=memcached start=started
-
-- name: memcached-restart
-  service: name=memcached state=restarted
-
-- name: memcached-reload
-  service: name=memcached state=reloaded
