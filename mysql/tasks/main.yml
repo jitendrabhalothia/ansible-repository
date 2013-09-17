@@ -1,0 +1,5 @@
+---
+- include: server.yml
+
+- include: dev.yml
+  when_boolean: $devmode
