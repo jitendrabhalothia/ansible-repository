@@ -7,11 +7,15 @@
   command: apt-get upgrade -y
   when_boolean: $common_upgrade
 
-- name: Common | Set timezone (1)
-  shell: echo $common_tz | sudo tee /etc/timezone
+- name: Common | Set TZ config file
+  template:
+    src=timezone.j2
+    dest=/etc/timezone
+  register: tz_result
 
-- name: Common | Set timezone (2)
+- name: Common | Reconfigure TZ
   command: dpkg-reconfigure tzdata
+  when: tz_result.changed
 
 - name: Common | Install 'python-apt' module
   command: apt-get install python-apt -y
