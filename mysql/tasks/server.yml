@@ -10,16 +10,17 @@
   template:
     src=mysql_seed.j2
     dest=/root/mysql.seed
-  when_failed: $mysqld_exists
+  when: mysqld_exists|failed
 
 - name: MySQL | Preseed mysql file
   command: /usr/bin/debconf-set-selections /root/mysql.seed
-  when_failed: $mysqld_exists
+  when: mysqld_exists|failed
 
 # 3) Install
 - name: MySQL | Install server
   apt: pkg=mysql-server state=installed force=yes
   when_failed: $mysqld_exists
+  when: mysqld_exists|failed
 
 - name: MySQL | Ensure MySQL daemon is running
   service: name=mysql state=started
@@ -27,7 +28,7 @@
 # 4) Cleanup
 - name: MySQL | Delete mysql.seed file
   command: /bin/rm /root/mysql.seed
-  when_failed: $mysqld_exists
+  when: mysqld_exists|failed
 
 
 # Push configuration files

@@ -1,8 +1,11 @@
 ---
 # Description: Set a user's default mysql-client IDs as root. DO NOT DO THIS IS A PRODUCTION SERVER.
-- name: MySQL | Config for easy access as user $ansible_user_id
+- name: MySQL | Dev | Config for easy access as user $dev_user
   template:
-    src=$repository_basedir/mysql/templates/user_my.cnf.j2
+    src=user_my.cnf.j2
     dest=/home/$ansible_user_id/.my.cnf
     owner=$ansible_user_id mode=0600
+  when: dev_user is defined
 
+- name: MySQL | Dev | Development tools for MySQL
+  apt: pkg=percona-toolkit state=present
