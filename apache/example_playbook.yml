@@ -1,0 +1,27 @@
+---
+
+- hosts: webservers
+  user: someuser
+  sudo: True
+
+  vars:
+    repository_basedir: ..
+
+  vars_files:
+    - $repository_basedir/apache/vars/main.yml
+#    - example_settings_file.yml
+
+  tasks:
+    # Install Apache server, a default virtual host and default config files
+    - include: $repository_basedir/apache/tasks/setup.yml
+
+    # Manage virtual hosts
+    - include: $repository_basedir/apache/tasks/vhost_add.yml create_docroot=True vhost=bibi.test.vt docroot=bibi.test.vt
+    - include: $repository_basedir/apache/tasks/vhost_del.yml remove_docroot=True vhost=bibi.test.vt docroot=bibi.test.vt
+
+    # Manage apache modules
+    - include: $repository_basedir/apache/tasks/module_enable.yml module=rewrite
+    - include: $repository_basedir/apache/tasks/module_disable.yml module=rewrite
+
+  handlers:
+    - include: $repository_basedir/apache/handlers/handlers.yml
