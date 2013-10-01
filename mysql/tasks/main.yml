@@ -4,4 +4,4 @@
 
 # Devmode specific configurations
 - include: dev.yml
-  when_boolean: $devmode
+  when: devmode
