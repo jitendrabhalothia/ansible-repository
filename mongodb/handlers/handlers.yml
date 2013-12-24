@@ -1,5 +1,5 @@
 - name: mongodb-start
-  service: name=mongodb start=started
+  service: name=mongodb state=started
 
 - name: mongodb-restart
   service: name=mongodb state=restarted
