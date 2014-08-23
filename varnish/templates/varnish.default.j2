@@ -66,7 +66,7 @@ VARNISH_LISTEN_ADDRESS={{ varnish_addr|default('') }}
 VARNISH_LISTEN_PORT={{ varnish_port|default('6081') }}
 
 # # Telnet admin interface listen address and port
-VARNISH_ADMIN_LISTEN_ADDRESS={{ varnish_admin_port|default('127.0.0.1') }}
+VARNISH_ADMIN_LISTEN_ADDRESS={{ varnish_admin_addr|default('127.0.0.1') }}
 VARNISH_ADMIN_LISTEN_PORT={{ varnish_admin_port|default('6082') }}
 
 # # The minimum number of worker threads to start
